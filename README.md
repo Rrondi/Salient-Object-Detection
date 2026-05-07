@@ -86,7 +86,7 @@ python app.py
 - On **Hugging Face Spaces**: set the Space dependency file to **`requirements_app.txt`** (or copy it to `requirements.txt` in the Space repo) so the build stays minimal and skips OpenCV.
 - **Streamlit Cloud** runs **Streamlit** apps (`streamlit run ...`), not Gradio. Use **Hugging Face Spaces (Gradio)** for this demo as-is, or add a separate Streamlit wrapper if your course requires Streamlit specifically.
 
-**If the Space “loads forever”:** free tiers often wake from cold sleep; PyTorch plus a ~90 MB `best.pt` can take **1–3 minutes** on CPU. This repo loads weights in a **background thread** after import so the page can appear sooner—first inference may still wait until weights are ready.
+**If the hosted app “loads forever”:** cold starts on free CPU tiers can take **several minutes** while **PyTorch installs/loads** and **`best.pt` (~90 MB)** is read into memory; the browser may keep spinning until startup finishes.
 
 `app.py` supports:
 - `CHECKPOINT_PATH` env var (default: `checkpoints/best.pt`)
