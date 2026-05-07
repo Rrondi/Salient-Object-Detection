@@ -75,6 +75,16 @@ Outputs:
 python demo_gradio.py
 ```
 
+For deployment (e.g., Hugging Face Spaces), use:
+
+```bash
+python app.py
+```
+
+`app.py` supports:
+- `CHECKPOINT_PATH` env var (default: `checkpoints/best.pt`)
+- `IMAGE_SIZE` env var (default: `128`)
+
 Shows:
 
 - input image
