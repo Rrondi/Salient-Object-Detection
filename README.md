@@ -49,6 +49,7 @@ python train.py --train_images_dir data/DUTS-TR/images --train_masks_dir data/DU
 ```
 
 Includes:
+
 - train/val split from DUTS-TR (default val ratio = 15%)
 - normalization to 0-1
 - augmentations (flip, random crop, brightness)
@@ -64,6 +65,7 @@ python evaluate.py --test_images_dir data/DUTS-TE/images --test_masks_dir data/D
 ```
 
 Outputs:
+
 - IoU, Precision, Recall, F1, MAE
 - saved sample visualizations in `outputs/`
 
@@ -74,6 +76,7 @@ python demo_gradio.py
 ```
 
 Shows:
+
 - input image
 - predicted saliency mask
 - overlay
@@ -106,6 +109,7 @@ python inspect_dataset.py --tr_images_dir data/DUTS-TR/images --tr_masks_dir dat
 ```
 
 This writes:
+
 - `outputs_dataset_inspection/dataset_report.txt`
 - sample visualizations in `outputs_dataset_inspection/`
 
@@ -116,12 +120,6 @@ python experiments.py --tr_images_dir data/DUTS-TR/images --tr_masks_dir data/DU
 ```
 
 This writes a comparison table to:
+
 - `experiments/results.csv`
 
-## 9) Notes
-
-- If your dataset mask extension differs (`.png` vs `.jpg`), pairing by filename stem is already supported.
-- For faster experiments, start with `image_size=128`, then scale to `224`.
-- `.gitignore` excludes `data/`, `checkpoints/`, and generated outputs. After cloning, users need to:
-  1) place dataset files in `data/` and
-  2) train (or download provided pretrained weights) before evaluation/demo.
