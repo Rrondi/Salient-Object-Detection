@@ -1,0 +1,5 @@
+# Minimal deps for cloud demo (app.py) — avoids OpenCV binary issues on Py3.14 / some hosts
+torch
+torchvision
+numpy
+gradio

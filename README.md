@@ -81,6 +81,11 @@ For deployment (e.g., Hugging Face Spaces), use:
 python app.py
 ```
 
+`app.py` uses **PyTorch** for resizing only (no OpenCV), which avoids broken `cv2` wheels on some cloud runtimes (e.g. Python 3.14).
+
+- On **Hugging Face Spaces**: set the Space dependency file to **`requirements_app.txt`** (or copy it to `requirements.txt` in the Space repo) so the build stays minimal and skips OpenCV.
+- **Streamlit Cloud** runs **Streamlit** apps (`streamlit run ...`), not Gradio. Use **Hugging Face Spaces (Gradio)** for this demo as-is, or add a separate Streamlit wrapper if your course requires Streamlit specifically.
+
 `app.py` supports:
 - `CHECKPOINT_PATH` env var (default: `checkpoints/best.pt`)
 - `IMAGE_SIZE` env var (default: `128`)
