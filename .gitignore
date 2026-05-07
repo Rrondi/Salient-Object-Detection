@@ -1,0 +1,29 @@
+# Python cache/env
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Training artifacts
+checkpoints/
+outputs/
+outputs_duts_te/
+outputs_dataset_inspection/
+experiments/
+
+# Optional large dataset files (keep structure, not raw data)
+data/
+!data/.gitkeep
+
+# Logs
+*.log
