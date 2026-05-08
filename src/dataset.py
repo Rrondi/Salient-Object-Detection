@@ -65,14 +65,17 @@ class SODDataset(Dataset):
         return image, mask
 
     def _augment(self, image: np.ndarray, mask: np.ndarray):
+        # Horizontal flip.
         if random.random() < 0.5:
             image = np.flip(image, axis=1).copy()
             mask = np.flip(mask, axis=1).copy()
 
+        # Mild brightness change.
         if random.random() < 0.5:
             factor = random.uniform(0.75, 1.25)
             image = np.clip(image * factor, 0.0, 1.0)
 
+        # Random crop + resize.
         if random.random() < 0.5:
             crop = random.randint(0, self.image_size // 8)
             if crop > 0:
@@ -82,6 +85,28 @@ class SODDataset(Dataset):
                 image = cv2.resize(image, (self.image_size, self.image_size), interpolation=cv2.INTER_LINEAR)
                 mask = cv2.resize(mask, (self.image_size, self.image_size), interpolation=cv2.INTER_NEAREST)
                 mask = np.expand_dims(mask, axis=2) if mask.ndim == 2 else mask
+
+        # Small geometric jitter helps robustness on TE.
+        if random.random() < 0.35:
+            angle = random.uniform(-10.0, 10.0)
+            center = (self.image_size // 2, self.image_size // 2)
+            mat = cv2.getRotationMatrix2D(center, angle, 1.0)
+            image = cv2.warpAffine(
+                image, mat, (self.image_size, self.image_size), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101
+            )
+            mask = cv2.warpAffine(
+                mask, mat, (self.image_size, self.image_size), flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_REFLECT_101
+            )
+            if mask.ndim == 2:
+                mask = np.expand_dims(mask, axis=2)
+
+        # Slight blur/noise to reduce overfitting to texture.
+        if random.random() < 0.20:
+            image = cv2.GaussianBlur(image, (3, 3), 0)
+        if random.random() < 0.20:
+            noise = np.random.normal(0.0, 0.02, image.shape).astype(np.float32)
+            image = np.clip(image + noise, 0.0, 1.0)
+
         return image, mask
 
     def __getitem__(self, idx):
