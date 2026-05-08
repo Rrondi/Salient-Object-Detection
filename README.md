@@ -1,3 +1,5 @@
+---
+
 # Salient Object Detection (PyTorch, From Scratch)
 
 End-to-end SOD project using a custom encoder-decoder CNN (no pretrained backbone), built for DUTS-style saliency masks.
@@ -7,7 +9,6 @@ End-to-end SOD project using a custom encoder-decoder CNN (no pretrained backbon
 ```bash
 python -m venv .venv
 # Windows PowerShell:
-.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
@@ -83,12 +84,13 @@ python app.py
 
 `app.py` uses **PyTorch** for resizing only (no OpenCV), which avoids broken `cv2` wheels on some cloud runtimes (e.g. Python 3.14).
 
-- On **Hugging Face Spaces**: set the Space dependency file to **`requirements_app.txt`** (or copy it to `requirements.txt` in the Space repo) so the build stays minimal and skips OpenCV.
+- On **Hugging Face Spaces**: set the Space dependency file to `**requirements_app.txt`** (or copy it to `requirements.txt` in the Space repo) so the build stays minimal and skips OpenCV.
 - **Streamlit Cloud** runs **Streamlit** apps (`streamlit run ...`), not Gradio. Use **Hugging Face Spaces (Gradio)** for this demo as-is, or add a separate Streamlit wrapper if your course requires Streamlit specifically.
 
-**If the hosted app “loads forever”:** cold starts on free CPU tiers can take **several minutes** while **PyTorch installs/loads** and **`best.pt` (~90 MB)** is read into memory; the browser may keep spinning until startup finishes.
+**If the hosted app “loads forever”:** cold starts on free CPU tiers can take **several minutes** while **PyTorch installs/loads** and `**best.pt` (~90 MB)** is read into memory; the browser may keep spinning until startup finishes.
 
 `app.py` supports:
+
 - `CHECKPOINT_PATH` env var (default: `checkpoints/best.pt`)
 - `IMAGE_SIZE` env var (default: `128`)
 
@@ -99,25 +101,7 @@ Shows:
 - overlay
 - inference time per image
 
-## 6) Suggested Improvements for Report
-
-Run baseline first, then create at least two improved variants:
-
-1. Baseline: current architecture and defaults.
-2. Improvement A: increase depth/channels.
-3. Improvement B: stronger augmentations + tuned learning rate.
-
-Create a result table in your report:
-
-- Model variant
-- IoU
-- Precision
-- Recall
-- F1
-- MAE
-- Notes
-
-## 7) Dataset Inspection Evidence
+## 6) Dataset Inspection Evidence
 
 Generate dataset counts + sample image/mask pairs:
 
@@ -130,7 +114,7 @@ This writes:
 - `outputs_dataset_inspection/dataset_report.txt`
 - sample visualizations in `outputs_dataset_inspection/`
 
-## 8) Run Baseline + Two Improvements Automatically
+## 7) Run Baseline + Two Improvements Automatically
 
 ```bash
 python experiments.py --tr_images_dir data/DUTS-TR/images --tr_masks_dir data/DUTS-TR/masks --te_images_dir data/DUTS-TE/images --te_masks_dir data/DUTS-TE/masks --epochs 15
