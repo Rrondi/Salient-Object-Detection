@@ -2,6 +2,8 @@
 
 End-to-end SOD project using a custom encoder-decoder CNN (no pretrained backbone), built for DUTS-style saliency masks.
 
+Live demo: [Hugging Face Space]([https://huggingface.co/spaces/RronShkreta/Salient-Object-Detection](https://huggingface.co/spaces/RronShkreta/Salient-Object-Detection))
+
 ## 1) Setup
 
 ```bash
